@@ -13,7 +13,10 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     },
   })
-  return { props: { feed } }
+
+  console.log(feed);
+
+  return { props: { feed: JSON.parse(JSON.stringify(feed)) }, revalidate: 30, }
 }
 
 type Props = {
@@ -21,6 +24,7 @@ type Props = {
 }
 
 const Blog: React.FC<Props> = (props) => {
+
   return (
     <Layout>
       <div className="page">
