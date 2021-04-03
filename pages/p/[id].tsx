@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 };
 
 async function publishPost(id: number, pub: boolean): Promise<void> {
-  await fetch(`http://localhost:3000/api/publish/${id}`, {
+  await fetch(`../api/publish/${id}`, {
     method: "PUT",
     headers: {'content-type': 'application/json'},
     body: JSON.stringify({pub: pub})
@@ -34,7 +34,7 @@ async function publishPost(id: number, pub: boolean): Promise<void> {
 }
 
 async function deletePost(id: number): Promise<void> {
-  await fetch(`http://localhost:3000/api/post/${id}`, {
+  await fetch(`../api/post/${id}`, {
     method: "DELETE",
   });
 
