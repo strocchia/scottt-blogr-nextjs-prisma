@@ -8,7 +8,7 @@ import { useSession } from "next-auth/client";
 import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await prisma.post.findOne({
+  const post = await prisma.post.findUnique({
     where: {
       id: Number(params?.id) || -1,
     },
@@ -23,10 +23,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-async function publishPost(id: number): Promise<void> {
+async function publishPost(id: number, pub: boolean): Promise<void> {
   await fetch(`http://localhost:3000/api/publish/${id}`, {
     method: "PUT",
+    headers: {'content-type': 'application/json'},
+    body: JSON.stringify({pub: pub})
   });
+
   await Router.push("/");
 }
 
@@ -34,6 +37,7 @@ async function deletePost(id: number): Promise<void> {
   await fetch(`http://localhost:3000/api/post/${id}`, {
     method: "DELETE",
   });
+
   Router.push("/");
 }
 
@@ -56,7 +60,10 @@ const Post: React.FC<PostProps> = (props) => {
         <p>By {props?.author?.name || "Unknown author"}</p>
         <ReactMarkdown source={props.content} />
         {!props.published && userHasValidSession && postBelongsToUser && (
-          <button onClick={() => publishPost(props.id)}>Publish</button>
+          <button onClick={() => publishPost(props.id, props.published)}>Publish</button>
+        )}
+        {props.published && userHasValidSession && postBelongsToUser && (
+          <button onClick={() => publishPost(props.id, props.published)}>Set as Draft</button>
         )}
         {userHasValidSession && postBelongsToUser && (
           <button onClick={() => deletePost(props.id)}>Delete</button>
