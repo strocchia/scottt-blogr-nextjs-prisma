@@ -139,6 +139,9 @@ const Header: React.FC = () => {
         <Link href="/drafts">
           <a data-active={isActive("/drafts")}>Drafts</a>
         </Link>
+        <button onClick={() => router.push("/")}>
+          <a>Refresh</a>
+        </button>
         <style jsx>{`
           .bold {
             font-weight: bold;
@@ -161,6 +164,10 @@ const Header: React.FC = () => {
 
           a + a {
             margin-left: 1rem;
+          }
+
+          button {
+            border: none;
           }
         `}</style>
       </div>

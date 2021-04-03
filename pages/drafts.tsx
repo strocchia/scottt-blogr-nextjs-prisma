@@ -32,14 +32,14 @@ type Props = {
   drafts: PostProps[];
 };
 
-const Drafts: React.FC<Props> = (props) => {
+const Drafts: React.FC<Props> = ({ drafts }) => {
   const [session] = useSession();
 
   if (!session) {
     return (
       <Layout>
-        <h1>My Drafts</h1>
-        <div>You need to be authenticated to view this page.</div>
+        <h1><em>??</em> Drafts</h1>
+        <div>Validation needed ... nothing to show.</div>
       </Layout>
     );
   }
@@ -49,7 +49,7 @@ const Drafts: React.FC<Props> = (props) => {
       <div className="page">
         <h1>My Drafts</h1>
         <main>
-          {props.drafts.map((post) => (
+          {drafts.map((post) => (
             <div key={post.id} className="post">
               <Post post={post} />
             </div>
@@ -57,13 +57,17 @@ const Drafts: React.FC<Props> = (props) => {
         </main>
       </div>
       <style jsx>{`
+        .page {
+          margin-bottom: 5rem;
+        }
+
         .post {
           background: white;
-          transition: box-shadow 0.1s ease-in;
+          transition: box-shadow 0.3s ease-in;
         }
 
         .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
+          box-shadow: 5px 5px 5px #888;
         }
 
         .post + .post {
