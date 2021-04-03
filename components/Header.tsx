@@ -139,7 +139,7 @@ const Header: React.FC = () => {
         <Link href="/drafts">
           <a data-active={isActive("/drafts")}>Drafts</a>
         </Link>
-        <button onClick={() => router.push("/")}>
+        <button onClick={() => router.replace(router.asPath)}>
           <a>Refresh</a>
         </button>
         <style jsx>{`
@@ -167,6 +167,7 @@ const Header: React.FC = () => {
           }
 
           button {
+            margin-left: 1rem;
             border: none;
           }
         `}</style>
