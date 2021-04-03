@@ -4,7 +4,7 @@ import Router from "next/router";
 
 const Draft: React.FC = () => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+      const [content, setContent] = useState("");
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();

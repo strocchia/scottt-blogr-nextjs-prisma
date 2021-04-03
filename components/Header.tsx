@@ -5,7 +5,8 @@ import { signOut, useSession } from "next-auth/client";
 
 const Header: React.FC = () => {
   const router = useRouter();
-  const isActive: (pathname: string) => boolean = (pathname) => router.pathname === pathname;
+  const isActive: (pathname: string) => boolean = (pathname) =>
+    router.pathname === pathname;
 
   const [session, loading] = useSession();
 
@@ -106,7 +107,7 @@ const Header: React.FC = () => {
           a {
             text-decoration: none;
             //color: #000;
-            
+
             display: inline-block;
           }
 
@@ -137,10 +138,15 @@ const Header: React.FC = () => {
           </a>
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive("/drafts")}>Drafts</a>
+          <a className="bold" data-active={isActive("/drafts")}>
+            Drafts
+          </a>
         </Link>
-        <button onClick={() => router.replace(router.asPath)}>
-          <a>Refresh</a>
+        <br />
+        <button onClick={() => window.location.reload()}>
+          <a>
+            <span style={{ marginRight: "0.6em" }}>🔄</span>Refresh
+          </a>
         </button>
         <style jsx>{`
           .bold {
@@ -167,8 +173,12 @@ const Header: React.FC = () => {
           }
 
           button {
-            margin-left: 1rem;
+            margin-top: 1rem;
             border: none;
+          }
+
+          button a {
+            font-size: 16px;
           }
         `}</style>
       </div>
@@ -194,8 +204,8 @@ const Header: React.FC = () => {
           }
 
           p {
-            display: inline-block;
             font-size: 13px;
+            display: inline-block;
             padding-right: 1.5rem;
           }
 

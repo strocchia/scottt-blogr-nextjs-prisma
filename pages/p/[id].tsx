@@ -18,16 +18,17 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       },
     },
   });
+
   return {
-    props: post,
+    props: JSON.parse(JSON.stringify(post)),
   };
 };
 
 async function publishPost(id: number, pub: boolean): Promise<void> {
   await fetch(`../api/publish/${id}`, {
     method: "PUT",
-    headers: {'content-type': 'application/json'},
-    body: JSON.stringify({pub: pub})
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ pub: pub }),
   });
 
   await Router.push("/");
@@ -50,20 +51,32 @@ const Post: React.FC<PostProps> = (props) => {
   const postBelongsToUser = session?.user?.email === props.author?.email;
   let title = props.title;
   if (!props.published) {
-    title = `${title} (Draft)`;
+    title = `${title}`;
   }
 
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
+        <p id="statusLabel">
+          {!props.published ? (
+            <em>( {"Draft".toUpperCase()} )</em>
+          ) : (
+            <>{"Pub".toUpperCase()}</>
+          )}
+        </p>
+        <br />
         <p>By {props?.author?.name || "Unknown author"}</p>
         <ReactMarkdown source={props.content} />
         {!props.published && userHasValidSession && postBelongsToUser && (
-          <button onClick={() => publishPost(props.id, props.published)}>Publish</button>
+          <button onClick={() => publishPost(props.id, props.published)}>
+            Publish
+          </button>
         )}
         {props.published && userHasValidSession && postBelongsToUser && (
-          <button onClick={() => publishPost(props.id, props.published)}>Set as Draft</button>
+          <button onClick={() => publishPost(props.id, props.published)}>
+            Set as Draft
+          </button>
         )}
         {userHasValidSession && postBelongsToUser && (
           <button onClick={() => deletePost(props.id)}>Delete</button>
@@ -73,6 +86,10 @@ const Post: React.FC<PostProps> = (props) => {
         .page {
           background: white;
           padding: 2rem;
+        }
+
+        #statusLabel {
+          margin-top: -0.7rem;
         }
 
         .actions {
