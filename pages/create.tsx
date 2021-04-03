@@ -9,14 +9,17 @@ const Draft: React.FC = () => {
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { title, content };
+      const body = { 
+        title: title, 
+        content: content 
+      };
+
       const jsonresult = await fetch("./api/post", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      console.log(body);
-      console.log(jsonresult);
+      
       await Router.push("/drafts");
     } catch (error) {
       console.log(error);
