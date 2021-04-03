@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   console.log(feed);
 
-  return { props: { feed: JSON.parse(JSON.stringify(feed)) }, revalidate: 30, }
+  return { props: { feed: JSON.parse(JSON.stringify(feed)) } }
 }
 
 type Props = {

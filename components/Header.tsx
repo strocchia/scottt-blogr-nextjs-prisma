@@ -5,8 +5,7 @@ import { signOut, useSession } from "next-auth/client";
 
 const Header: React.FC = () => {
   const router = useRouter();
-  const isActive: (pathname: string) => boolean = (pathname) =>
-    router.pathname === pathname;
+  const isActive: (pathname: string) => boolean = (pathname) => router.pathname === pathname;
 
   const [session, loading] = useSession();
 
@@ -17,6 +16,11 @@ const Header: React.FC = () => {
           Feed
         </a>
       </Link>
+      <Link href="/about">
+        <a className="bold" data-active={isActive("/about")}>
+          About
+        </a>
+      </Link>
       <style jsx>{`
         .bold {
           font-weight: bold;
@@ -24,12 +28,17 @@ const Header: React.FC = () => {
 
         a {
           text-decoration: none;
-          color: #000;
+          //color: #000;
+          color: gray;
           display: inline-block;
         }
 
         .left a[data-active="true"] {
-          color: gray;
+          //color: gray;
+          color: blue;
+          border: 1px solid black;
+          border-radius: 5px;
+          padding: 0.25em;
         }
 
         a + a {
@@ -56,12 +65,17 @@ const Header: React.FC = () => {
 
           a {
             text-decoration: none;
-            color: #000;
+            //color: #000;
+            color: gray;
             display: inline-block;
           }
 
           .left a[data-active="true"] {
-            color: gray;
+            //color: gray;
+            color: blue;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 0.25em;
           }
 
           a + a {
@@ -91,7 +105,8 @@ const Header: React.FC = () => {
         <style jsx>{`
           a {
             text-decoration: none;
-            color: #000;
+            //color: #000;
+            
             display: inline-block;
           }
 
@@ -105,7 +120,7 @@ const Header: React.FC = () => {
 
           .right a {
             border: 1px solid black;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 3px;
           }
         `}</style>
@@ -122,7 +137,7 @@ const Header: React.FC = () => {
           </a>
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive("/drafts")}>My drafts</a>
+          <a data-active={isActive("/drafts")}>Drafts</a>
         </Link>
         <style jsx>{`
           .bold {
@@ -131,12 +146,17 @@ const Header: React.FC = () => {
 
           a {
             text-decoration: none;
-            color: #000;
+            //color: #000;
+            color: gray;
             display: inline-block;
           }
 
           .left a[data-active="true"] {
-            color: gray;
+            //color: gray;
+            color: blue;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 0.25em;
           }
 
           a + a {
@@ -168,7 +188,7 @@ const Header: React.FC = () => {
           p {
             display: inline-block;
             font-size: 13px;
-            padding-right: 1rem;
+            padding-right: 1.5rem;
           }
 
           a + a {
@@ -181,7 +201,7 @@ const Header: React.FC = () => {
 
           .right a {
             border: 1px solid black;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 3px;
           }
 
