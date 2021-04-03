@@ -4,14 +4,14 @@ import Router from "next/router";
 
 const Draft: React.FC = () => {
   const [title, setTitle] = useState("");
-      const [content, setContent] = useState("");
+  const [content, setContent] = useState("");
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      const body = { 
-        title: title, 
-        content: content 
+      const body = {
+        title: title,
+        content: content,
       };
 
       const jsonresult = await fetch("./api/post", {
@@ -19,7 +19,7 @@ const Draft: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      
+
       await Router.push("/drafts");
     } catch (error) {
       console.log(error);
@@ -41,9 +41,9 @@ const Draft: React.FC = () => {
           />
           <textarea
             cols={50}
+            rows={10}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Content"
-            rows={8}
             value={content}
           />
           <input disabled={!content || !title} type="submit" value="Create" />

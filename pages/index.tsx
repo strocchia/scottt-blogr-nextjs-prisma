@@ -12,6 +12,9 @@ export const getStaticProps: GetStaticProps = async () => {
         select: { name: true },
       },
     },
+    orderBy: {
+      updatedAt: "desc",
+    },
   });
 
   return {

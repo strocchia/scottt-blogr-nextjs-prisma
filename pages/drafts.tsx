@@ -9,7 +9,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
   if (!session) {
     res.statusCode = 403;
-    return { props: { drafts: [] } };
+    return {
+      props: {
+        drafts: [],
+      },
+    };
   }
 
   const drafts = await prisma.post.findMany({
@@ -21,6 +25,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       author: {
         select: { name: true },
       },
+    },
+    orderBy: {
+      updatedAt: "desc",
     },
   });
   return {
@@ -38,7 +45,9 @@ const Drafts: React.FC<Props> = ({ drafts }) => {
   if (!session) {
     return (
       <Layout>
-        <h1><em>??</em> Drafts</h1>
+        <h1>
+          <em>??</em> Drafts
+        </h1>
         <div>Validation needed ... nothing to show.</div>
       </Layout>
     );
